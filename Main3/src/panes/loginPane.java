@@ -26,7 +26,6 @@ public class loginPane {
 		pwPass.setText("");
 	}
 	public void btnSet() {
-		
 		btnLogin.setOnAction(e->{
 			if (txtUser.getText().toLowerCase().equals("admin") && pwPass.getText().toLowerCase().equals("password")){
 				PaneInstance.bp.setCenter(null);

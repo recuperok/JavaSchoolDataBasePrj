@@ -1,6 +1,7 @@
 package editPanes;
 
 import java.io.File;
+
 import holders.TextBook;
 import instances.BagInstance;
 import instances.PaneInstance;
@@ -14,17 +15,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import main.Login;
+import main.TestLogin;
 
 public class EditTxtBookPane {
 	final static int width = 725, height = 700;
 	
-	Alert inAlert = new Alert(AlertType.ERROR);
-	
 	Image img;
 	private FileChooser fc = new FileChooser();
-	Image imgCover = new Image("file:JWU-logo-1.jpg");
-	private final ImageView txtBkImage = new ImageView(imgCover);
+	
+	Alert inAlert = new Alert(AlertType.ERROR);
+	private final ImageView txtBkImage = new ImageView();
 	
 	
 	private final Button btnEdit = new Button("Edit TextBook"), btnSearchImg = new Button("Browse"), btnRemove = new Button("Remove TextBook");
@@ -40,13 +40,9 @@ public class EditTxtBookPane {
 	private final HBox hEdit = new HBox();
 	
 	public EditTxtBookPane() {
-		setButtons();
 		hEdit.setSpacing(55);
 		vContainer.setSpacing(10);
 		vImage.setSpacing(10);
-		
-		txtBkImage.setFitHeight(350);
-		txtBkImage.setFitWidth(250);
 		
 		vContainer.getChildren().addAll(lblBl, lblTitle, txtTitle, lblAuthor, txtAuthor, lblBIsbn, txtBIsbn, lblPrice, txtPrice, btnEdit, btnRemove);
 		vImage.getChildren().addAll(lblBlank, lblImgDirect, txtImg, txtBkImage, btnSearchImg);
@@ -64,37 +60,28 @@ public class EditTxtBookPane {
 				BagInstance.tbb.editTextBookArray(BagInstance.tbb.getPlace(), t);
 			}
 		});
-		
-		btnRemove.setOnAction(e-> {
-			if (txtBIsbn.getText().isEmpty()) {
-				inAlert.setTitle("Warning: No ISBN");
-				inAlert.setHeaderText("Invalid Input: 0x1101");
-				inAlert.setContentText("There is no ISBN In the textbox");
-			}else {
-				BagInstance.tbb.removeTextBook(txtBIsbn.getText());	
-			}
-		});
-		
 		btnSearchImg.setOnAction(e-> {
-			File image = fc.showOpenDialog(Login.mainStage);
+			File image = fc.showOpenDialog(TestLogin.mainStage);
 			img = new Image("file:"+image.getAbsolutePath());
-			txtImg.setText(image.getAbsolutePath());			
+			txtImg.setText(image.getAbsolutePath());
+
+			
+			txtBkImage.setFitHeight(350);
+			txtBkImage.setFitWidth(250);
 			txtBkImage.setImage(img);
 		});
 	}
 	
 	public HBox gethTBEdit(TextBook textBook) {
-		Login.setWidth(width, height);
-		System.out.println(textBook.getIsbn());
-		System.out.println(textBook.getTitle());
-		System.out.println(textBook.getAuthor());
-
-		img = new Image("file:" +textBook.getStrImgCover());
+		TestLogin.setWidth(width, height);
+		img = new Image("file:" +textBook.getImgCover());
+		txtBkImage.setFitHeight(350);
+		txtBkImage.setFitWidth(250);
+		txtBkImage.setImage(img);
 		txtBIsbn.setText(textBook.getIsbn());
 		txtTitle.setText(textBook.getTitle());
 		txtAuthor.setText(textBook.getAuthor());
 		txtPrice.setText(String.valueOf(textBook.getDblPrice()));
-		txtBkImage.setImage(img);
 		txtImg.setText("");//might take out
 		return hEdit;
 	}

@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TBookBag {
-	private String fileName = "TextBook.dat";
+	private String fileName = "Resources/TextBook.dat";
 	int nElements;
 	private TextBook[] textBookArray;
 	int place = 0;
@@ -23,34 +23,6 @@ public class TBookBag {
 	
 	public TextBook[] getCourseArray() {
 		return textBookArray;
-	}
-	
-	public TBookBag(int maxSize) {
-		this.textBookArray = new TextBook[maxSize];
-	}
-	
-	public void insertTextBookArray(TextBook textBookAdd) {
-		textBookArray[nElements++] = textBookAdd;
-	}
-	
-	public void editTextBookArray(int x, TextBook textBookEdit) {
-		textBookArray[x] = textBookEdit;
-	}
-	
-	public void removeTextBook(String Isbn) {
-		if (Isbn.length() == 10 || Isbn.length() == 13) {
-			int x = 0;
-			for (x = 0; x < nElements;x++) {
-				if (textBookArray[x].getIsbn().toString().equals(Isbn)) {
-					textBookArray[x] = textBookArray[x+1];
-					for (int y = x + 1; x < nElements;) {
-						if (textBookArray[y].getIsbn().isEmpty()){
-							textBookArray[y] = textBookArray[y - 1];
-						}
-					}
-				}
-			}
-		}
 	}
 	
 	public ObservableList<String> getTitle() {
@@ -65,12 +37,23 @@ public class TBookBag {
 		return allTitles;
 	}
 	
+	public TBookBag(int maxSize) {
+		this.textBookArray = new TextBook[maxSize];
+	}
+	
+	public void insertTextBookArray(TextBook textBookAdd) {
+		textBookArray[nElements++] = textBookAdd;
+	}
+	
+	public void editTextBookArray(int x, TextBook textBookEdit) {
+		textBookArray[x] = textBookEdit;
+	}
+	
 	public TextBook searchTextBookISBN(String tbIsbn) {
 		if (tbIsbn.length() == 10 || tbIsbn.length() == 13) {
 			for (int x = 0; x < nElements;) {
 				if (textBookArray[x].getIsbn().toString().equals(tbIsbn)){
 					place = x;
-					System.out.println(textBookArray[x].toString());
 					return textBookArray[x];
 				}else{
 					x = x + 1;
@@ -106,14 +89,13 @@ public class TBookBag {
 		ObjectInputStream ois = null;
 		try {
 			fis = new FileInputStream(fileName);
-			if (!fis.toString().isEmpty()){
-				ois = new ObjectInputStream(fis);
-				textBookArray = (TextBook[]) ois.readObject();
-				nElements = ois.readInt();
-				ois.close();
-			}
+			ois = new ObjectInputStream(fis);
+			textBookArray = (TextBook[]) ois.readObject();
+			nElements = ois.readInt();
+			ois.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
