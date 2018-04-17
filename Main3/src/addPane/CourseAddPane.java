@@ -58,7 +58,8 @@ public class CourseAddPane {
 		courseAlert.setContentText("Inputted values are not correct");
 	}
 	
-	public void setCmb() {																			 		// Setting the combo-box values
+	public void setCmb() {		
+		System.out.println(BagInstance.tbb.getNElements());// Setting the combo-box values
 		for (int x = 0; x < BagInstance.tbb.getNElements(); x++){									 		// A loop to get all the textbooks from the textbook file
 			if (cmbTxtBooks.getItems().contains(BagInstance.tbb.getCourseArray()[x].getTitle())){	 		// If the textbook is already in the combo-box it will not add it again
 			}else {

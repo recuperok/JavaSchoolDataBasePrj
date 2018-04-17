@@ -33,6 +33,7 @@ public class PersonMenu {
 		itemTeachAdd.setOnAction(e->{
 			PaneInstance.bp.setCenter(PaneInstance.fap.getAddTeacher());
 			PaneInstance.bp.setRight(PaneInstance.ep.getVRight());
+			PaneInstance.fap.setCmbs();
 		});
 		itemTeachSearch.setOnAction(e->{
 			
@@ -41,8 +42,8 @@ public class PersonMenu {
 	}
 	
 	public void addStudent() {
-		
 	}
+	
 	public Menu getMPerson() {
 		return menuPerson;
 	}

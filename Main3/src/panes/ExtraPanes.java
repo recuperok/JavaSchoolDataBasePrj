@@ -21,6 +21,13 @@ public class ExtraPanes {
 		setNamePane();
 	}
 	
+	public void clearName() {
+		txtAddress.clear();
+		txtFirstName.clear();
+		txtLastName.clear();
+		txtPhone.clear();
+	}
+	
 	public VBox getNamePane() {
 		return vPersonInfo;
 	}

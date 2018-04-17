@@ -10,7 +10,8 @@ import java.io.ObjectOutputStream;
 import holders.Person;
 
 public class BodyBag {
-	private Person[] peopleArray;
+	private Person[] teacherArray;
+	private Person[] studentArray;
 	private int nElements;
 	private String fileName = "Resources/Person.dat";
 	
@@ -18,19 +19,20 @@ public class BodyBag {
 		return nElements;
 	}
 	
-	public BodyBag(int maxSize) {
-		this.peopleArray = new Person[maxSize];		
+	public BodyBag(int maxSize) {               //Check this for two different Person arrays -student -teacher
+		this.teacherArray = new Person[maxSize];		
+		this.studentArray = new Person[maxSize];
 	}
 	
 	public void insertArray(Person personAdd) {
-		peopleArray[nElements++] = personAdd;
+		teacherArray[nElements++] = personAdd;
 	}
 	
 	public void writeBinary() {
 		try {
 			FileOutputStream fos = new FileOutputStream(fileName);
 			ObjectOutputStream dos = new ObjectOutputStream(fos);
-			dos.writeObject(peopleArray);
+			dos.writeObject(teacherArray);
 			dos.writeInt(nElements);
 			dos.close();
 		} catch (FileNotFoundException e) {
@@ -50,7 +52,7 @@ public class BodyBag {
 		try {
 			fis = new FileInputStream(fileName);
 			ois = new ObjectInputStream(fis);
-			peopleArray = (Person[]) ois.readObject();
+			teacherArray = (Person[]) ois.readObject();
 			nElements = ois.readInt();
 			ois.close();
 		} catch (IOException e) {

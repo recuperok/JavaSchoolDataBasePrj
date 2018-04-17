@@ -11,7 +11,6 @@ public class CourseMenu {
 	
 	
 	public CourseMenu() {
-
 		menuCourse.getItems().addAll(itemAdd, itemSearch);
 		
 		itemAdd.setOnAction(e-> {

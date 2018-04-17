@@ -1,5 +1,6 @@
 package addPane;
 
+import instances.BagInstance;
 import instances.PaneInstance;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -31,7 +32,6 @@ public class FacultyAddPane {
 	
 	public FacultyAddPane() {
 		setBtns();
-		setCmbs();
 		vTeacherAdd.setSpacing(10);
 		vListView.setSpacing(10);
 		hTeacherAdd.setSpacing(10);
@@ -42,13 +42,29 @@ public class FacultyAddPane {
 	}
 	
 	public void setCmbs() {
-		cmbRanks.getItems().addAll("Teacher" , "Adminastrator", "Department Chair");
+		if (cmbRanks.getItems().isEmpty()) {
+			cmbRanks.getItems().addAll("Teacher" , "Adminastrator", "Department Chair");
+		}
+		
 		//cmbTeaching.getItems().addAll(null);
+		System.out.println(BagInstance.cb.getNElements());
+		for (int x = 0; x < BagInstance.cb.getNElements(); x++) {
+			
+			if (cmbTeaching.getItems().contains(BagInstance.cb.getCourseArray()[x].getcTitle())) {
+			}else {
+				cmbTeaching.getItems().add(BagInstance.cb.getCourseArray()[x].getcTitle());
+			}
+		}
 	}
 	
 	public void setBtns() {
 		btnAddCourse.setOnAction(e-> {
-			//if (txtSalary.getText().isEmpty() || cmbRanks)
+			if (cmbTeaching.getValue().equals("")) {
+			}else {
+				lvClasses.getItems().add(cmbTeaching.getValue());
+				cmbTeaching.getItems().remove(cmbTeaching.getValue());
+				cmbTeaching.setValue("");
+			}
 		});
 		
 		btnAddTeacher.setOnAction(e-> {
@@ -56,6 +72,8 @@ public class FacultyAddPane {
 					|| PaneInstance.ep.txtAddress.getText().isEmpty()) {
 				setAlert();
 				textBookAlert.show();
+			}else {
+				//code for adding teacher to binary goes here
 			}
 		});
 		
@@ -69,8 +87,12 @@ public class FacultyAddPane {
 		textBookAlert.setContentText("It seems you forgot to put in all the info");
 	}
 	
-	
 	public HBox getAddTeacher() {
+		PaneInstance.ep.clearName();
+		cmbRanks.setValue("");
+		cmbTeaching.setValue("");
+		lvClasses.getItems().removeAll(lvClasses.getItems());
+		txtSalary.clear();
 		return hTeacherAdd;
 	}
 }
