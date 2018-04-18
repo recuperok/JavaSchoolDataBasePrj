@@ -12,10 +12,16 @@ import holders.Person;
 public class BodyBag {
 	private Person[] teacherArray;
 	private Person[] studentArray;
-	private int nElements;
-	private String fileName = "Resources/Person.dat";
+	private int tElements, sElements;
+	private String fileName = "Resource/Person.dat";
 	
-	public int getNElements() {
+	public int getNElements(int choice) {
+		int nElements = 0;
+		if (choice == 1) {
+			nElements = sElements; //student
+		}else if(choice == 2) {
+			nElements = tElements;
+		}
 		return nElements;
 	}
 	
@@ -24,11 +30,33 @@ public class BodyBag {
 		this.studentArray = new Person[maxSize];
 	}
 	
-	public void insertArray(Person personAdd) {
-		teacherArray[nElements++] = personAdd;
+	public void insertArray(Person personAdd, int choice) {
+		if (choice == 1) {
+			studentArray[sElements++] = personAdd;
+		}else if (choice == 2) {
+			//System.out.println(tElements);
+			teacherArray[tElements++] = personAdd;	
+		}
+	}
+	public Person[] getPersonArray(int choice) {
+		Person[] p = studentArray;
+		if (choice == 1) {
+			p = studentArray;
+		}else if (choice == 2) {
+			p = teacherArray;
+		}
+		return p;
 	}
 	
-	public void writeBinary() {
+	public void writeBinary(int choice) {
+		int nElements = 0;
+		if (choice == 1) {
+			nElements = sElements; //student
+			fileName = "Resource/Student.dat";
+		}else if(choice == 2) {
+			nElements = tElements;
+			fileName = "Resource/Teacher.dat";
+		}
 		try {
 			FileOutputStream fos = new FileOutputStream(fileName);
 			ObjectOutputStream dos = new ObjectOutputStream(fos);
@@ -45,9 +73,19 @@ public class BodyBag {
 		System.out.println("Done Writing to the Person binary file.");
 	}
 	
-	public void readBinary() {
+	public void readBinary(int choice) {
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
+		
+		@SuppressWarnings("unused")
+		int nElements;
+		if (choice == 1) {
+			nElements = sElements; //student
+			fileName = "Resource/Student.dat";
+		}else if(choice == 2) {
+			nElements = tElements;
+			fileName = "Resource/Teacher.dat";
+		}
 		
 		try {
 			fis = new FileInputStream(fileName);

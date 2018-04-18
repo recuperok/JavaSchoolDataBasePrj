@@ -17,7 +17,7 @@ public class FileMenu {
 		itemExport.setOnAction(e-> {
 			BagInstance.cb.writeBinary();
 			BagInstance.tbb.writeBinary();
-			//BagInstance.bb.writeBinary();
+			BagInstance.bb.writeBinary(2);
 		});
 	}
 	

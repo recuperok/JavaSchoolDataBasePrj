@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import holders.Courses;
 
 public class CourseBag {
-	private String fileName = "Resources/Course.dat";
+	private String fileName = "Resource/Course.dat";
 	int nElements;
 	int place = 0;
 	private Courses[] courseArray;
@@ -21,6 +21,7 @@ public class CourseBag {
 	public void insertCourseArray(Courses courseAdd) {
 		System.out.println(nElements);
 		courseArray[nElements++] = courseAdd;
+		System.out.println("new one");
 	}
 	
 	public int getNElements() {

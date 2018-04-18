@@ -15,7 +15,7 @@ public class CourseMenu {
 		
 		itemAdd.setOnAction(e-> {
 			PaneInstance.bp.setCenter(PaneInstance.cap.getHCAdd());
-			PaneInstance.bp.setRight(PaneInstance.ep.getVRight());
+			PaneInstance.bp.setRight(PaneInstance.np.getVRight());
 			PaneInstance.cap.setCmb();
 		});
 		

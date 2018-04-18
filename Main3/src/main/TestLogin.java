@@ -23,6 +23,7 @@ public class TestLogin extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		mainStage.setHeight(400);
 		mainStage.setWidth(400);
+		loginScene.getStylesheets().add("nice.css");
 		mainStage.setScene(loginScene);
 		mainStage.setResizable(false);
 		mainStage.show();

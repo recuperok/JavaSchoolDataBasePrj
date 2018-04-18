@@ -32,7 +32,7 @@ public class PersonMenu {
 		});
 		itemTeachAdd.setOnAction(e->{
 			PaneInstance.bp.setCenter(PaneInstance.fap.getAddTeacher());
-			PaneInstance.bp.setRight(PaneInstance.ep.getVRight());
+			PaneInstance.bp.setRight(PaneInstance.np.getVRight());
 			PaneInstance.fap.setCmbs();
 		});
 		itemTeachSearch.setOnAction(e->{

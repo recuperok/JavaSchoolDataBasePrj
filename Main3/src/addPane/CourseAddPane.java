@@ -59,7 +59,7 @@ public class CourseAddPane {
 	}
 	
 	public void setCmb() {		
-		System.out.println(BagInstance.tbb.getNElements());// Setting the combo-box values
+		//System.out.println(BagInstance.tbb.getNElements());// Setting the combo-box values
 		for (int x = 0; x < BagInstance.tbb.getNElements(); x++){									 		// A loop to get all the textbooks from the textbook file
 			if (cmbTxtBooks.getItems().contains(BagInstance.tbb.getCourseArray()[x].getTitle())){	 		// If the textbook is already in the combo-box it will not add it again
 			}else {
@@ -81,7 +81,6 @@ public class CourseAddPane {
 				for (int x = 0 ; x <= BagInstance.cb.getNElements(); x++) {
 					if (x == BagInstance.cb.getNElements() || BagInstance.cb.getCourseArray()[0].getcTitle().isEmpty() || 
 							!(BagInstance.cb.getCourseArray()[x].getcNumber().equals(txtCNum.getText()))) {
-						
 						Courses c = new Courses(txtCNum.getText(), txtCTitle.getText(), txtCDesc.getText(),
 								Double.parseDouble(txtCCredit.getText()));
 						BagInstance.cb.insertCourseArray(c);

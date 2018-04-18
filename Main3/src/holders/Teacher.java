@@ -2,10 +2,13 @@ package holders;
 
 import java.util.ArrayList;
 
-public class Teacher {
+@SuppressWarnings("serial")
+public class Teacher extends Person{
 	double salary;
 	String rank;
 	ArrayList<String> CoursesTeaching = new ArrayList<>();
+	
+	public Teacher() {}
 	
 	public Teacher(double salary, String rank, ArrayList<String> coursesTeaching) {
 		super();
@@ -34,13 +37,13 @@ public class Teacher {
 		return CoursesTeaching;
 	}
 
-	public void setCoursesTeaching(ArrayList<String> coursesTeaching) {
-		CoursesTeaching = coursesTeaching;
+	public void setCoursesTeaching(String coursesTeaching) {
+		CoursesTeaching.add(coursesTeaching);
 	}
-
 	@Override
 	public String toString() {
-		return "The salary is $" + salary + ". They are a(n)" + rank + ", They teach " + CoursesTeaching;
+		return "Name: " + firstName + " " + lastName + "; ID #:" + id + "; Address:" + address
+				+ "; Phone: " + phone + " " + "/nRank" + rank + " making $" + salary + "; Teaching " + CoursesTeaching;
 	}
 	
 	

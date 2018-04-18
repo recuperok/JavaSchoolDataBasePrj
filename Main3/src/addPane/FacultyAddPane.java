@@ -1,20 +1,24 @@
 package addPane;
 
+import java.util.ArrayList;
+
+import holders.Person;
+import holders.Teacher;
 import instances.BagInstance;
 import instances.PaneInstance;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class FacultyAddPane {
 	private final static String strAdd = "Add Course";
-	
+	ArrayList<String> CoursesTeaching = new ArrayList<>();
 	Alert textBookAlert = new Alert(AlertType.ERROR);
 	
 	public final Button btnAddCourse = new Button(strAdd), btnAddTeacher = new Button("Add Teacher"), btnEditTeacher = new Button("Edit Teacher");
@@ -31,6 +35,7 @@ public class FacultyAddPane {
 	public final HBox hTeacherAdd= new HBox();
 	
 	public FacultyAddPane() {
+		PaneInstance.np.setTxtId();
 		setBtns();
 		vTeacherAdd.setSpacing(10);
 		vListView.setSpacing(10);
@@ -38,16 +43,13 @@ public class FacultyAddPane {
 		
 		vTeacherAdd.getChildren().addAll(lblBlank, lblSalary, txtSalary, lblRank, cmbRanks, btnAddTeacher);
 		vListView.getChildren().addAll(lblBl, lblTeaching, cmbTeaching, lvClasses, btnAddCourse);
-		hTeacherAdd.getChildren().addAll(PaneInstance.ep.getNamePane(), vListView, vTeacherAdd);
+		hTeacherAdd.getChildren().addAll(PaneInstance.np.getNamePane(), vListView, vTeacherAdd);
 	}
 	
 	public void setCmbs() {
 		if (cmbRanks.getItems().isEmpty()) {
 			cmbRanks.getItems().addAll("Teacher" , "Adminastrator", "Department Chair");
 		}
-		
-		//cmbTeaching.getItems().addAll(null);
-		System.out.println(BagInstance.cb.getNElements());
 		for (int x = 0; x < BagInstance.cb.getNElements(); x++) {
 			
 			if (cmbTeaching.getItems().contains(BagInstance.cb.getCourseArray()[x].getcTitle())) {
@@ -68,15 +70,39 @@ public class FacultyAddPane {
 		});
 		
 		btnAddTeacher.setOnAction(e-> {
-			if (cmbRanks.getValue() == null || PaneInstance.ep.txtFirstName.getText().isEmpty() || PaneInstance.ep.txtLastName.getText().isEmpty()
-					|| PaneInstance.ep.txtAddress.getText().isEmpty()) {
+			if (txtSalary.getText().replaceAll(" ", "").equals("") || cmbRanks.getValue() == null || 
+					PaneInstance.np.txtFirstName.getText().isEmpty() || PaneInstance.np.txtLastName.getText().isEmpty()
+					|| PaneInstance.np.txtAddress.getText().isEmpty() || PaneInstance.np.txtPhone.getText().isEmpty()) {
 				setAlert();
 				textBookAlert.show();
 			}else {
-				//code for adding teacher to binary goes here
+				for (int x = 0; x <= BagInstance.bb.getNElements(2); x++) {
+					if( x == BagInstance.bb.getNElements(2) || BagInstance.bb.getPersonArray(2)[0].getFirstName().equals(PaneInstance.np.txtFirstName.getText()) 
+							|| BagInstance.bb.getPersonArray(2)[0].getLastName().equals(PaneInstance.np.txtLastName.getText())) {
+						
+						CoursesTeaching.addAll(lvClasses.getItems());
+						Person p;
+						p = new Teacher(Double.parseDouble(txtSalary.getText()), cmbRanks.getValue(), CoursesTeaching);
+						p.setFirstName(PaneInstance.np.txtFirstName.getText());
+						p.setLastName(PaneInstance.np.txtLastName.getText());
+						p.setId(PaneInstance.np.lblIdNumber.getText()); 
+						p.setPhone(PaneInstance.np.txtPhone.getText());
+						p.setAddress(PaneInstance.np.txtAddress.getText());
+						
+						
+						BagInstance.bb.insertArray(p, 2);
+						getAddTeacher();
+						PaneInstance.np.setTxtId();
+						break;
+					}else {			
+					}	
+				}
+				
+				for(int x = 0;x < BagInstance.bb.getNElements(2); x++) {
+					System.out.println(BagInstance.bb.getPersonArray(2)[x].toString());
+				}
 			}
 		});
-		
 		btnEditTeacher.setOnAction(e-> {
 			
 		});
@@ -88,7 +114,8 @@ public class FacultyAddPane {
 	}
 	
 	public HBox getAddTeacher() {
-		PaneInstance.ep.clearName();
+		PaneInstance.np.clearName();
+		setCmbs();
 		cmbRanks.setValue("");
 		cmbTeaching.setValue("");
 		lvClasses.getItems().removeAll(lvClasses.getItems());

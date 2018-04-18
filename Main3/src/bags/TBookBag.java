@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TBookBag {
-	private String fileName = "Resources/TextBook.dat";
+	private String fileName = "Resource/TextBook.dat";
 	int nElements;
 	private TextBook[] textBookArray;
 	int place = 0;

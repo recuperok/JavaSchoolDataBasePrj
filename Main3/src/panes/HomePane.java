@@ -13,7 +13,7 @@ public class HomePane {
 	public final VBox vHomePane = new VBox();
 	private final Label lblSchoolName = new Label("Johnson & Wales" + "\n" + "     University");
 	private final ImageView selectedImage = new ImageView();
-	Image imgLogo = new Image("file:Resources/JWU-logo-1.jpg");
+	Image imgLogo = new Image("JWU-logo-1.jpg");
     Font fontJWU = new Font("sansserif", 55);
 	
 	public HomePane() {
@@ -24,7 +24,7 @@ public class HomePane {
 	
 	public VBox getVHomePane() {
 		TestLogin.setWidth(600, 700);
-		PaneInstance.bp.setLeft(PaneInstance.ep.getVLeft());
+		PaneInstance.bp.setLeft(PaneInstance.np.getVLeft());
 		return vHomePane;
 	}
 }
